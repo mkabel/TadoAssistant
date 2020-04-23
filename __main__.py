@@ -20,7 +20,7 @@ def main():
         print('Account settings configure')
         return
 
-    my_tado = TadoHelper(args.email, keyring.get_password('tado.com', args.email))
+    my_tado = TadoHelper(args.email, args.pwd)
 
     while True:
         wait_time = 60
