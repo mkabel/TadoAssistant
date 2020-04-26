@@ -1,11 +1,42 @@
 import logging
 import time
 import argparse
-import keyring
+import pickle
+from obfuscation import Obfuscation
 from tadoHelper import TadoHelper
 
 logging.basicConfig(filename='log/tado.log', format='%(asctime)s - %(message)s', level=logging.INFO)
 _LOG_ = logging.getLogger(__name__)
+
+
+def save_settings(content):
+    file_handler = open('./data/settings', 'wb')
+    pickle.dump(content, file_handler)
+    file_handler.close()
+
+
+def load_settings():
+    file_handler = open('./data/settings', 'rb')
+    content = pickle.load(file_handler)
+    file_handler.close()
+    return content
+
+
+def encrypt_settings(email, pwd):
+    Obfuscation().initialise()
+    settings = {
+        'email': Obfuscation().encrypt(email),
+        'pwd': Obfuscation().encrypt(pwd)
+    }
+    return settings
+
+
+def decrypt_settings(content):
+    settings = {
+        'email': Obfuscation().decrypt(content['email']),
+        'pwd': Obfuscation().decrypt(content['pwd'])
+    }
+    return settings
 
 
 def main():
@@ -16,11 +47,12 @@ def main():
     args = parser.parse_args()
 
     if args.configure:
-        keyring.set_password('tado.com', args.email, args.pwd)
+        save_settings(encrypt_settings(args.email, args.pwd))
         print('Account settings configure')
         return
 
-    my_tado = TadoHelper(args.email, args.pwd)
+    settings = decrypt_settings(load_settings())
+    my_tado = TadoHelper(settings['email'], settings['pwd'])
 
     while True:
         wait_time = 60
