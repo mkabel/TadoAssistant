@@ -62,7 +62,7 @@ def main():
         except Exception as err:
             logging.warning(repr(err))
 
-        _LOG_.info(f'Idle for {wait_time} seconds')
+        _LOG_.debug(f'Idle for {wait_time} seconds')
         time.sleep(wait_time)
 
 
