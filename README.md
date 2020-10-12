@@ -9,5 +9,5 @@ ToDo: Make script fail proof.
 
 dependencies:
 * PyTado
-* Cryptography
+* Fernet (Cryptography)
 * Python >3.6
