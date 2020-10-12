@@ -6,3 +6,8 @@ Upon first run configure your account with -c option.
 Prior to the first run create a ./data and ./log directory. So far did not invest in auto creation of directories...
 
 ToDo: Make script fail proof.
+
+dependencies:
+* PyTado
+* Cryptography
+* Python >3.6
