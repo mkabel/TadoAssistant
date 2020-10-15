@@ -8,6 +8,6 @@ Prior to the first run create a ./data and ./log directory. So far did not inves
 ToDo: Make script fail proof.
 
 dependencies:
-* PyTado
+* python-tado
 * Fernet (Cryptography)
 * Python >3.6
